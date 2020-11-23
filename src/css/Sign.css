@@ -1,0 +1,22 @@
+.sign__paper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.sign__up {
+  height: 300px;
+}
+
+.sign__in {
+  height: 190px;
+}
+
+.sign__image {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.sign__item {
+  margin-bottom: 10px;
+}
