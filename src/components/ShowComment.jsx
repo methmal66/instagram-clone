@@ -8,31 +8,49 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import "../css/showComment.css";
 import { db } from "../firebase";
 
+const useStyles = makeStyles((theme) => ({
+  avatar: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    marginRight: "10px",
+  },
+  paper: {
+    position: "absolute",
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid lightgray",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  root: {
+    paddingLeft: "20px",
+    paddingRight: "20px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  left: {
+    display: "flex",
+    flex: "1",
+  },
+  right: {
+    flex: "0",
+    display: "flex",
+  },
+  delete: {
+    marginTop: "10px",
+  },
+}));
+
+const getModalStyle = () => ({
+  top: `50%`,
+  left: `50%`,
+  transform: `translate(-50%, -50%)`,
+});
+
 const ShowComment = ({ postId, comId, name, text, logedIn }) => {
-  const getModalStyle = () => ({
-    top: `50%`,
-    left: `50%`,
-    transform: `translate(-50%, -50%)`,
-  });
-
-  const useStyles = makeStyles((theme) => ({
-    avatar: {
-      width: theme.spacing(3),
-      height: theme.spacing(3),
-    },
-    paper: {
-      position: "absolute",
-      width: 400,
-      backgroundColor: theme.palette.background.paper,
-      border: "2px solid lightgray",
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    },
-  }));
-
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
@@ -53,19 +71,19 @@ const ShowComment = ({ postId, comId, name, text, logedIn }) => {
   };
 
   return (
-    <div className="showComment">
-      <div className="showComment__left">
+    <div className={classes.root}>
+      <div className={classes.left}>
         <Avatar
           src="dummy"
           sizes="small"
           alt={name}
-          className={classes.avatar + " showComment__avatar"}
+          className={classes.avatar}
         />
         <span>
           <strong> {name}</strong> {text}
         </span>
       </div>
-      <div className="showComment__right">
+      <div className={classes.right}>
         {logedIn ? (
           <IconButton>
             <FavoriteBorderOutlinedIcon fontSize="small" />
@@ -98,7 +116,7 @@ const ShowComment = ({ postId, comId, name, text, logedIn }) => {
               This action can not undo. Are you sure want to delete this
               comment?
             </span>
-            <div className="showComment__delete">
+            <div className={classes.delete}>
               <Button
                 variant="contained"
                 color="secondary"

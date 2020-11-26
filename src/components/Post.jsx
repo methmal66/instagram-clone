@@ -1,21 +1,56 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Chat from "./Chat";
-import "../css/Post.css";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles(() => ({
+  root: {
+    backgroundColor: "white",
+    maxWidth: "500px",
+    border: "1px solid lightgray",
+    marginBottom: "40px",
+  },
+  header: {
+    display: "flex",
+    padding: "20px",
+    alignItems: "center",
+  },
+  date: {
+    color: "rgb(145, 143, 143)",
+  },
+  namedate: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  image: {
+    width: "100%",
+    objectFit: "contain",
+    borderBottom: "1px solid lightgray",
+    borderTop: "1px solid lightgray",
+  },
+  footer: {
+    padding: "20px",
+  },
+  avatar: {
+    marginRight: "10px",
+  },
+}));
 
 const Post = ({ user, postId, userName, caption, imageUrl, date }) => {
+  const classes = useStyles();
+
   return (
-    <div className="post">
-      <div className="post__header">
-        <Avatar className="post__avatar" src="dummy" alt={userName} />
-        <div className="post__name-date">
+    <div className={classes.root}>
+      <div className={classes.header}>
+        <Avatar className={classes.avatar} src="dummy" alt={userName} />
+        <div className={classes.namedate}>
           <span>{userName}</span>
-          <span className="post__date">{date}</span>
+          <span className={classes.date}>{date}</span>
         </div>
       </div>
 
-      <img className="post__image" src={imageUrl} alt="post" />
-      <div className="post__footer">
+      <img className={classes.image} src={imageUrl} alt="post" />
+      <div className={classes.footer}>
         <span>
           <strong>{userName} </strong>
           {caption}

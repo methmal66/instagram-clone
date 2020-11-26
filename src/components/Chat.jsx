@@ -2,9 +2,17 @@ import React, { useEffect, useState } from "react";
 import AddComment from "./AddComment";
 import ShowComment from "./ShowComment";
 import { db } from "../firebase";
-import "../css/Chat.css";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles(() => ({
+  comments: {
+    display: "flex",
+    flexDirection: "column",
+  },
+}));
 
 const Chat = ({ id, addUser, logedIn }) => {
+  const classes = useStyles();
   const [comments, setComments] = useState([]);
 
   useEffect(
@@ -23,26 +31,25 @@ const Chat = ({ id, addUser, logedIn }) => {
             }))
           )
         ),
+    // eslint-disable-next-line
     []
   );
 
+  const showCommentElements = comments.map((com) => (
+    <ShowComment
+      logedIn={logedIn}
+      postId={id}
+      comId={com.id}
+      name={com.comment.useraddName}
+      text={com.comment.comment}
+      like={com.comment.like}
+    />
+  ));
+
   return (
-    <div className="Chat">
-      <div className="chat__comments">
-        {comments.map((com) => (
-          <ShowComment
-            logedIn={logedIn}
-            postId={id}
-            comId={com.id}
-            name={com.comment.useraddName}
-            text={com.comment.comment}
-            like={com.comment.like}
-          />
-        ))}
-      </div>
-      {logedIn ? (
-        <AddComment postId={id} addName={addUser.displayName} />
-      ) : null}
+    <div>
+      <div className={classes.comments}>{showCommentElements}</div>
+      {logedIn && <AddComment postId={id} addName={addUser.displayName} />}
     </div>
   );
 };

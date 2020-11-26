@@ -5,14 +5,32 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { makeStyles } from "@material-ui/core/styles";
 import firebase, { db, storage } from "../firebase";
-import "../css/Uploader.css";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    backgroundColor: "white",
+    border: "1px solid lightgray",
+    marginBottom: "40px",
+    maxWidth: "500px",
+  },
   text: {
     width: "501px",
   },
   progress: {
     width: "375px",
+    marginLeft: "12px",
+  },
+  chooser: {
+    marginBottom: "10px",
+    marginTop: "10px",
+    maxWidth: "500px",
+  },
+  footer: {
+    display: "flex",
+    alignItems: "center",
   },
 }));
 
@@ -77,15 +95,15 @@ const Uploader = ({ user }) => {
   };
 
   return (
-    <div className="uploader">
+    <div className={classes.root}>
       <input
-        className="uploader__chooser"
+        className={classes.chooser}
         type="file"
         accept="images/*"
         onChange={handleInput}
       />
       <TextField
-        className={classes.text + " uploader__text"}
+        className={classes.text}
         variant="outlined"
         placeholder="Enter your caption here"
         rows="5"
@@ -95,12 +113,12 @@ const Uploader = ({ user }) => {
       >
         {caption}
       </TextField>
-      <div className="uploader__footer">
+      <div className={classes.footer}>
         <Button onClick={handleUpload} disabled={!image}>
           Upload
         </Button>
         <LinearProgress
-          className={classes.progress + " uploader__bar"}
+          className={classes.progress}
           variant="determinate"
           value={progress}
         />

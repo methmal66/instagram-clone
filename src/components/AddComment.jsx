@@ -3,9 +3,20 @@ import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import AddCommentIcon from "@material-ui/icons/AddComment";
 import firebase, { db } from "../firebase";
-import "../css/addComment.css";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles(() => ({
+  root: {
+    display: "flex",
+  },
+  text: {
+    flex: "1",
+    marginLeft: "15px",
+  },
+}));
 
 const AddComment = ({ postId, addName }) => {
+  const classes = useStyles();
   const [newComment, setNewComment] = useState("");
   const handleChange = (event) => setNewComment(event.target.value);
   const handleUpload = () => {
@@ -18,8 +29,8 @@ const AddComment = ({ postId, addName }) => {
     setNewComment(null);
   };
   return (
-    <div className="addComment">
-      <div className="addComment__text">
+    <div className={classes.root}>
+      <div className={classes.text}>
         <TextField
           fullWidth
           size="small"
@@ -28,11 +39,7 @@ const AddComment = ({ postId, addName }) => {
         ></TextField>
       </div>
       <div>
-        <IconButton
-          className="addComment__btn"
-          onClick={handleUpload}
-          disabled={!newComment}
-        >
+        <IconButton onClick={handleUpload} disabled={!newComment}>
           <AddCommentIcon />
         </IconButton>
       </div>
