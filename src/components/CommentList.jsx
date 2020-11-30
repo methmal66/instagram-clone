@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddComment from "./AddComment";
 import ShowComment from "./ShowComment";
 import { db } from "../firebase";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   comments: {

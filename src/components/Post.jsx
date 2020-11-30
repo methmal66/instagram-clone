@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
-import Chat from "./Chat";
-import { makeStyles } from "@material-ui/styles";
+import CommentList from "./CommentList";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -56,7 +56,7 @@ const Post = ({ user, postId, userName, caption, imageUrl, date }) => {
           {caption}
         </span>
       </div>
-      <Chat id={postId} addUser={user} logedIn={Boolean(user)} />
+      <CommentList id={postId} addUser={user} logedIn={Boolean(user)} />
     </div>
   );
 };
