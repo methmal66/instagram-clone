@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import AddCommentIcon from "@material-ui/icons/AddComment";
@@ -15,8 +16,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const AddComment = ({ postId, addName }) => {
+const AddComment = ({ postId }) => {
   const classes = useStyles();
+  const addName = useSelector((state) => state.user.displayName);
   const [newComment, setNewComment] = useState("");
   const handleChange = (event) => setNewComment(event.target.value);
   const handleUpload = () => {
@@ -28,6 +30,7 @@ const AddComment = ({ postId, addName }) => {
     });
     setNewComment(null);
   };
+
   return (
     <div className={classes.root}>
       <div className={classes.text}>

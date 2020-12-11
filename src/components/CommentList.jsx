@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import AddComment from "./AddComment";
 import ShowComment from "./ShowComment";
 import { db } from "../firebase";
@@ -11,8 +12,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Chat = ({ id, addUser, logedIn }) => {
+const CommentList = ({ id }) => {
   const classes = useStyles();
+  const logedIn = useSelector((state) => Boolean(state.user));
   const [comments, setComments] = useState([]);
 
   useEffect(
@@ -49,9 +51,9 @@ const Chat = ({ id, addUser, logedIn }) => {
   return (
     <div>
       <div className={classes.comments}>{showCommentElements}</div>
-      {logedIn && <AddComment postId={id} addName={addUser.displayName} />}
+      {logedIn && <AddComment postId={id} />}
     </div>
   );
 };
 
-export default Chat;
+export default CommentList;

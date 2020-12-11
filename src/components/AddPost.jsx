@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -34,8 +35,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Uploader = ({ user }) => {
+const AddPost = () => {
   const classes = useStyles();
+  const { user } = useSelector((state) => state);
   const [caption, setCaption] = useState();
   const [image, setImage] = useState(null);
   const [progress, setProgress] = useState(null);
@@ -94,38 +96,41 @@ const Uploader = ({ user }) => {
     return;
   };
 
-  return (
-    <div className={classes.root}>
-      <input
-        className={classes.chooser}
-        type="file"
-        accept="images/*"
-        onChange={handleInput}
-      />
-      <TextField
-        className={classes.text}
-        variant="outlined"
-        placeholder="Enter your caption here"
-        rows="5"
-        width="200px"
-        multiline
-        onChange={handleCaption}
-      >
-        {caption}
-      </TextField>
-      <div className={classes.footer}>
-        <Button onClick={handleUpload} disabled={!image}>
-          Upload
-        </Button>
-        <LinearProgress
-          className={classes.progress}
-          variant="determinate"
-          value={progress}
+  if (user) {
+    return (
+      <div className={classes.root}>
+        <input
+          className={classes.chooser}
+          type="file"
+          accept="images/*"
+          onChange={handleInput}
         />
-        <span>{formatProgress()}</span>
+        <TextField
+          className={classes.text}
+          variant="outlined"
+          placeholder="Enter your caption here"
+          rows="5"
+          width="200px"
+          multiline
+          onChange={handleCaption}
+        >
+          {caption}
+        </TextField>
+        <div className={classes.footer}>
+          <Button onClick={handleUpload} disabled={!image}>
+            Upload
+          </Button>
+          <LinearProgress
+            className={classes.progress}
+            variant="determinate"
+            value={progress}
+          />
+          <span>{formatProgress()}</span>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  return <div></div>;
 };
 
-export default Uploader;
+export default AddPost;

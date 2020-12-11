@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Post = ({ user, postId, userName, caption, imageUrl, date }) => {
+const Post = ({ postId, userName, caption, url }) => {
   const classes = useStyles();
 
   return (
@@ -45,18 +45,17 @@ const Post = ({ user, postId, userName, caption, imageUrl, date }) => {
         <Avatar className={classes.avatar} src="dummy" alt={userName} />
         <div className={classes.namedate}>
           <span>{userName}</span>
-          <span className={classes.date}>{date}</span>
         </div>
       </div>
 
-      <img className={classes.image} src={imageUrl} alt="post" />
+      <img className={classes.image} src={url} alt="post" />
       <div className={classes.footer}>
         <span>
           <strong>{userName} </strong>
           {caption}
         </span>
       </div>
-      <CommentList id={postId} addUser={user} logedIn={Boolean(user)} />
+      <CommentList id={postId} key={postId} />
     </div>
   );
 };

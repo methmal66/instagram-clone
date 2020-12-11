@@ -5,6 +5,9 @@ const userName = (state = init, action) => {
     case "SET_USER_NAME":
       return action.payload;
 
+    case "CLEAR_USER_NAME":
+      return null;
+
     default:
       return state;
   }

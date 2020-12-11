@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Header = ({ user, setUser, userName, setUserName }) => {
+const Header = () => {
   const classes = useStyles();
 
   return (
@@ -27,12 +27,7 @@ const Header = ({ user, setUser, userName, setUserName }) => {
         src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
         alt="instagram logo"
       />
-      <Sign
-        userName={userName}
-        user={user}
-        setUserName={setUserName}
-        setUser={setUser}
-      />
+      <Sign />
     </div>
   );
 };

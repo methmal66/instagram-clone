@@ -1,4 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setNewUser, logOutUser } from "../Actions/user";
+import { setUserName } from "../Actions/userName";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
@@ -37,13 +40,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Sign = ({ userName, user, setUserName, setUser }) => {
+const Sign = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { user, userName } = useSelector((state) => state);
   const [isDisbled, setIsDisabled] = useState(true);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [open, setOpen] = useState({ up: false, in: false });
-  const handleUserName = (event) => setUserName(event.target.value);
+  const handleUserName = (event) => dispatch(setUserName(event.target.value));
   const handleEmail = (event) => setEmail(event.target.value);
   const handlePassword = (event) => setPassword(event.target.value);
   const handleConfirmPassword = (event) =>
@@ -55,9 +60,9 @@ const Sign = ({ userName, user, setUserName, setUser }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        setUser(authUser);
+        dispatch(setNewUser(authUser));
       } else {
-        setUser(null);
+        dispatch(logOutUser());
       }
     });
     return () => {
@@ -93,7 +98,7 @@ const Sign = ({ userName, user, setUserName, setUser }) => {
 
   const handleLogout = () => {
     auth.signOut();
-    setUser(null);
+    dispatch(logOutUser());
   };
 
   const signUpModal = (
