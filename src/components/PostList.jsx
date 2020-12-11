@@ -5,18 +5,9 @@ import AddPost from "./AddPost";
 
 const PostList = () => {
   const { posts } = useSelector((state) => state);
-  const postList = posts.map((eachPost) => {
-    const { userName, caption, url } = eachPost.data;
-    return (
-      <Post
-        key={eachPost.id}
-        postId={eachPost.id}
-        userName={userName}
-        caption={caption}
-        url={url}
-      />
-    );
-  });
+  const postList = posts.map((eachPost) => (
+    <Post key={eachPost.id} postId={eachPost.id} {...eachPost.data} />
+  ));
 
   return (
     <div>

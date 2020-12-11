@@ -1,8 +1,12 @@
-export const setNewUser = (user) => ({
-  type: "SET_NEW_USER",
-  payload: user,
-});
+export const setNewUser = (user) => {
+  return {
+    type: "SET_NEW_USER",
+    payload: user,
+  };
+};
 
-export const logOutUser = () => ({
-  type: "LOG_OUT_USER",
-});
+export const logOutUser = () => {
+  return {
+    type: "LOG_OUT_USER",
+  };
+};
